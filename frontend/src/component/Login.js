@@ -1,8 +1,11 @@
 import { useState } from "react"
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate()
     const [isSignup, setisSignup] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [inputs, setInputs] = useState({
         name: "",
         email: "",
@@ -26,9 +29,9 @@ function Login() {
         }
         
     }
-
+    
     const sendRequest = async (type) => {
-        const response = await axios.post(`http://localhost:5000/api/user/${type}`, {
+        const response = await axios.post(`http://localhost:5001/api/user/${type}`, {
             name: inputs.name,
             email: inputs.email,
             password: inputs.password
@@ -38,7 +41,10 @@ function Login() {
         });
         console.log("S", response)
         const data = response.data;
-        if(data.message === "User alreay exists") {
+        if(data.message === "Login Success") {
+            navigate("/blog/")
+        }
+        else {
             alert(data.message)
         }
         return data;
