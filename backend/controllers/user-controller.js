@@ -21,7 +21,7 @@ export const signup = async(req, res, next) => {
     try {
         existingUser = await User.findOne({email});
         if(existingUser) {
-            return res.status(404).json({message: "User alreay exists"})
+            return res.status(200).json({message: "User alreay exists"})
         }
      }
      catch(err) {
@@ -43,14 +43,14 @@ export const login = async(req,res,next) => {
     try {
         existingUser = await User.findOne({email});
         if(!existingUser) {
-            return res.status(404).json({message: "User not Found"})
+            return res.status(200).json({message: "User not Found"})
         }
         else {
             if(password === existingUser.password) {
                 return res.status(200).json({message: "Login Success"})
             }
             else {
-                return res.status(400).json({message: "Invalid Password"})
+                return res.status(200).json({message: "Invalid Password"})
             }
         }
      }
