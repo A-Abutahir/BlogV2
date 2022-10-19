@@ -14,44 +14,27 @@ function Blog() {
 
     useEffect(() => {
         sendRequest().then((data) => {
-            setBlogs(data);
-            console.log(blogs)
+            setBlogs(data.data);
         });
     }, []);
+    console.log(blogs);
 
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-4">
-                    <div className="thumbnail">
-                        <a href="/w3images/lights.jpg">
-                            <img src="/w3images/lights.jpg" alt="Lights" />
-                            <div className="caption">
-                                <p>Lorem ipsum...</p>
+                {blogs && blogs.map((blog, index) => (
+                        <div className="col-md-4">
+                            <div className="thumbnail">
+                                <a href="/w3images/lights.jpg">
+                                    <img src={blog.image} alt="Lights"/>
+                                    <div className="caption">
+                                        <p>{blog.title}</p>
+                                        {blog.description}
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="thumbnail">
-                        <a href="/w3images/nature.jpg">
-                            <img src="/w3images/nature.jpg" alt="Nature" />
-                            <div className="caption">
-                                <p>Lorem ipsum...</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="thumbnail">
-                        <a href="/w3images/fjords.jpg">
-                            <img src="/w3images/fjords.jpg" alt="Fjords" />
-                            <div className="caption">
-                                <p>Lorem ipsum...</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                        </div>
+                    ))}
             </div>
         </div>
     );
