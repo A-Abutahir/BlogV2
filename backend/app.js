@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import router from './routes/user-routes';
 import cors from 'cors';
-import blogRouter from './routes/blog.routes';
+import blogRouter from './routes/blog-routes';
 
 const app = express();
 app.use(cors());
