@@ -16,14 +16,19 @@ function Login() {
         }));
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        const result = sendRequest();
-        console.log(result)
+        if(isSignup) {
+            const result = await sendRequest("signup");
+        }
+        else {
+            const result = await sendRequest("login");
+        }
+        
     }
 
-    const sendRequest = async () => {
-        const response = await axios.post("http://localhost:5000/api/user/signup", {
+    const sendRequest = async (type) => {
+        const response = await axios.post(`http://localhost:5000/api/user/${type}`, {
             name: inputs.name,
             email: inputs.email,
             password: inputs.password
@@ -31,10 +36,12 @@ function Login() {
         .catch((err) => {
             console.log(err);
         });
-        console.log(response.data)
-        const data = await response.data;
+        console.log("S", response)
+        const data = response.data;
+        if(data.message === "User alreay exists") {
+            alert(data.message)
+        }
         return data;
-
     }
 
     
