@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import Blogs from "../model/Blogs";
+import Blog from "../model/Blog";
 
 
 export const getAllBlogs = async (req, res, next) => {
     let blogs;
     try {
-        blogs = await Blogs.find();
+        blogs = await Blog.find();
     } catch (err) {
         console.log("ERR", err);
     }
@@ -19,13 +19,7 @@ export const getAllBlogs = async (req, res, next) => {
 export const addBlog = async (req, res, next) => {
     const { title, description, image, user } = req.body;
     
-    const blog = new Blogs({ title, description, image, user });
-    let existingUser;
-    try {
-        existingUser = await Users.findById(user);
-    } catch (err) {
-        return console.log("ERR", err);
-    }
+    const blog = new Blog({ title, description, image, user });
     try {
         await blog.save();
     } catch (err) {
@@ -39,7 +33,7 @@ export const updateBlog = async(req, res, next) => {
     const blogId = req.params.id;
     let blog;
     try {
-        blog = await Blogs.findByIdAndUpdate(blogId, {title, description})
+        blog = await Blog.findByIdAndUpdate(blogId, {title, description})
     }
     catch (err) {
         return console.log("ERR", err);
@@ -54,7 +48,7 @@ export const getById = async(req, res, next) => {
     const blogId = req.params.id;
     let blog;
     try {
-        blog = await Blogs.findById(blogId)
+        blog = await Blog.findById(blogId)
     }
     catch (err) {
         return console.log("ERR", err);
@@ -69,7 +63,7 @@ export const deleteBlog = async(req, res, next) => {
     const blogId = req.params.id;
     let blog;
     try {
-        blog = await Blogs.findOneAndRemove(blogId);
+        blog = await Blog.findOneAndRemove(blogId);
     }
     catch (err) {
         return console.log("ERR", err);
