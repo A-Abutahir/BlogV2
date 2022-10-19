@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Blog from "./component/Blog";
 import Header from "./component/Header";
 import Login from "./component/Login";
 
@@ -8,6 +9,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/blog" element={<Blog />}></Route>
       </Routes>
 
     </div>
